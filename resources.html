@@ -1,0 +1,179 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f0f0f0">
+  <title>Resources | Amulya Viswambharan</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="resources-page">
+
+  <header class="site-header">
+    <nav class="navbar" aria-label="Main navigation">
+      <a href="index.html#home" class="brand">Amulya Viswambharan</a>
+      <ul class="nav-links">
+  <li><a href="index.html#about">About</a></li>
+  <li><a href="experience.html">Experience</a></li>
+  <li><a href="research.html">Research</a></li>
+  <li><a href="education.html">Education</a></li>
+  <li><a href="teaching.html">Teaching</a></li>
+  <li><a href="resources.html" class="active">Resources</a></li>
+  <li><a href="talks.html">Talks &amp; Service</a></li>
+  <li><a href="contact.html">Contact</a></li>
+</ul>
+    </nav>
+  </header>
+
+  <main class="resources-hub">
+
+    <section class="resources-hero">
+      <p class="resources-eyebrow">STUDENT &amp; RESEARCH COMMUNITY</p>
+      <h1>Resources</h1>
+      <p>
+        Explore useful learning materials, technical tools, presentations,
+        and research resources related to energy systems, renewable energy,
+        artificial intelligence, and digital twins.
+      </p>
+    </section>
+
+    <section class="resources-library">
+
+      <div class="resources-search-panel">
+        <input
+          type="search"
+          id="resourceSearch"
+          placeholder="Search resources..."
+          aria-label="Search resources"
+        >
+
+        <div class="resource-filters" aria-label="Filter resources">
+          <button class="resource-filter active" data-filter="all">All</button>
+          <button class="resource-filter" data-filter="energy">Renewable Energy</button>
+          <button class="resource-filter" data-filter="power">Power Systems</button>
+          <button class="resource-filter" data-filter="presentation">Presentations</button>
+          <button class="resource-filter" data-filter="research">Research</button>
+        </div>
+      </div>
+
+      <div class="resources-library-heading">
+        <h2>Featured resources</h2>
+        <span id="resourceCount">10 topics</span>
+      </div>
+
+      <div class="resource-card-grid" id="resourceGrid">
+
+        <article class="resource-card" data-category="energy presentation">
+          <div class="resource-card-banner">
+            <span>PRESENTATION · RENEWABLE ENERGY</span>
+            <h3>AI-Powered Digital Twin for Renewable Energy</h3>
+          </div>
+          <div class="resource-card-body">
+            <h3>AI-Powered Digital Twin for Renewable Energy</h3>
+            <p>An overview of AI-powered digital twins for renewable energy planning, monitoring, and optimisation.</p>
+                        <div class="resource-tags">
+              <span>Renewable Energy</span>
+              <span>Digital Twins</span>
+            </div>
+
+            <a class="download-button" href="AI Powered Digital Twin for RE.pdf" download>
+              <span class="download-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3v12"></path>
+                  <path d="m7 10 5 5 5-5"></path>
+                  <path d="M4 17v3h16v-3"></path>
+                </svg>
+              </span>
+              Download PDF
+            </a>
+          </div>
+                
+              </a>
+        </article>
+
+        <article class="resource-card" data-category="power presentation">
+          <div class="resource-card-banner">
+            <span>PRESENTATION · POWER SYSTEMS</span>
+            <h3>Digital Twin Power Systems</h3>
+          </div>
+          <div class="resource-card-body">
+            <h3>Digital Twin Power Systems</h3>
+            <p>An introduction to digital-twin concepts and their applications in modern power systems.</p>
+            <div class="resource-tags">
+              <span>Power Systems</span>
+              <span>Digital Twins</span>
+            </div>
+            <a class="download-button" href="Digital_Twin_Power_Systems.pptx" download>
+                <span class="download-icon" aria-hidden="true">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+       stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 3v12"></path>
+    <path d="m7 10 5 5 5-5"></path>
+    <path d="M4 17v3h16v-3"></path>
+  </svg>
+</span>Download PPTX
+              </a>
+          </div>
+        </article>
+
+      
+
+      </div>
+
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Amulya Viswambharan</p>
+  </footer>
+
+  <script>
+    const searchInput = document.getElementById("resourceSearch");
+    const filterButtons = document.querySelectorAll(".resource-filter");
+    const resourceCards = document.querySelectorAll(".resource-card");
+    const resourceCount = document.getElementById("resourceCount");
+    const visibleTotal = document.getElementById("visibleResourceTotal");
+
+    let activeFilter = "all";
+
+    function updateResources() {
+      const query = searchInput.value.trim().toLowerCase();
+      let visible = 0;
+
+      resourceCards.forEach(card => {
+        const matchesSearch = card.textContent.toLowerCase().includes(query);
+        const categories = card.dataset.category.split(" ");
+        const matchesFilter =
+          activeFilter === "all" || categories.includes(activeFilter);
+
+        const show = matchesSearch && matchesFilter;
+        card.hidden = !show;
+
+        if (show) visible++;
+      });
+
+      resourceCount.textContent = `${visible} resources shown`;
+      visibleTotal.textContent = String(visible).padStart(2, "0");
+    }
+
+    searchInput.addEventListener("input", updateResources);
+
+    filterButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        activeFilter = button.dataset.filter;
+
+        filterButtons.forEach(item => {
+          item.classList.toggle("active", item === button);
+        });
+
+        updateResources();
+      });
+    });
+
+    updateResources();
+  </script>
+
+</body>
+</html>
